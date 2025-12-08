@@ -1,0 +1,107 @@
+:root {
+    --christmas-red: #D42426;
+    --christmas-green: #2F5233;
+    --snow-white: #F1F8FF;
+    --gold: #FFD700;
+    --text-color: #333;
+    --bg-color: #f0f0f0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    padding: 40px 0;
+    background: linear-gradient(135deg, var(--christmas-red), var(--christmas-green));
+    color: white;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    border-top: 5px solid var(--christmas-red);
+}
+
+.card:nth-child(even) {
+    border-top-color: var(--christmas-green);
+}
+
+h2 {
+    color: var(--christmas-green);
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+    margin-top: 0;
+}
+
+h3 {
+    color: var(--christmas-red);
+    margin-bottom: 10px;
+}
+
+.guest-columns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.guest-group {
+    flex: 1;
+    min-width: 200px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    padding: 5px 0;
+    border-bottom: 1px dashed #eee;
+}
+
+li:last-child {
+    border-bottom: none;
+}
+
+footer {
+    text-align: center;
+    margin-top: 40px;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 2rem;
+    }
+    
+    .container {
+        padding: 10px;
+    }
+}
+
