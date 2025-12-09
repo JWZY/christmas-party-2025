@@ -17,6 +17,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <!-- Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
 <body>
     <div class="gradient-bg">
@@ -58,7 +60,7 @@
                 </div>
             </section>
 
-            <section id="guest-list">
+            <section id="guest-list" class="host-only">
                 <h2>📝 Current Guest List</h2>
                 
                 <div class="details-grid">
@@ -84,7 +86,7 @@
                 </div>
             </section>
 
-            <section id="games">
+            <section id="games" class="host-only">
                 <h2>🎲 Games & Activities</h2>
                 <p style="color: var(--text-lighter); font-size: 1.05rem; margin-bottom: 25px;">
                     We'll have 2 "Main Teams" (Red vs. Green) for the overall score, but individual games will mix up the format!
@@ -202,31 +204,92 @@
     <div id="potluck-modal" class="modal">
         <div class="modal-content">
             <span class="close-modal">&times;</span>
-            <h2 style="margin-top: 0; text-align: center;">🍲 Bring a Dish</h2>
-            <form id="potluck-form">
-                <div class="form-group">
-                    <label for="guest-name">Your Name</label>
-                    <input type="text" id="guest-name" name="name" required placeholder="e.g. Santa Claus">
-                </div>
-                <div class="form-group">
-                    <label for="dish-name">What are you bringing?</label>
-                    <input type="text" id="dish-name" name="dish" required placeholder="e.g. Grandma's Cookies">
-                </div>
-                <button type="submit" class="btn" style="width: 100%; margin-top: 10px;">Submit Dish</button>
-            </form>
+            
+            <div id="potluck-form-container">
+                <h2 style="margin-top: 0; text-align: center;">🍲 Bring a Dish</h2>
+                <form id="potluck-form">
+                    <div class="form-group">
+                        <label for="guest-name">Your Name</label>
+                        <input type="text" id="guest-name" name="name" required placeholder="e.g. Santa Claus">
+                    </div>
+                    <div class="form-group">
+                        <label for="dish-name">What are you bringing?</label>
+                        <input type="text" id="dish-name" name="dish" required placeholder="e.g. Grandma's Cookies">
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%; margin-top: 10px;">Submit Dish</button>
+                </form>
+            </div>
+
+            <div id="success-message" class="success-message" style="display: none;">
+                <div class="success-progress-bar"></div>
+                <h2 style="margin-top: 20px;">🎉 Submitted!</h2>
+                <p>Deliciousness awaits.</p>
+            </div>
         </div>
     </div>
 
+    <!-- Admin Button -->
+    <button id="admin-btn" title="Host Access">🔑</button>
+
     <script>
+        // Admin Logic
+        const adminBtn = document.getElementById('admin-btn');
+        // SHA-256 hash of the password
+        const HOST_HASH = "53d73c3111a333885bc5a57c546a57397ce57bb05170e9c02207dae4fc6f3fad";
+
+        async function sha256(message) {
+            const msgBuffer = new TextEncoder().encode(message);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        if (adminBtn) {
+            adminBtn.onclick = async function() {
+                const password = prompt("Enter Host Password:");
+                if (password) {
+                    const hash = await sha256(password);
+                    if (hash === HOST_HASH) {
+                        document.querySelectorAll('.host-only').forEach(el => {
+                            el.style.display = 'block';
+                        });
+                        adminBtn.style.display = 'none';
+                        alert("Welcome Host! 🍌");
+                    } else {
+                        alert("Incorrect password!");
+                    }
+                }
+            };
+        }
+
         // Modal Logic
         const modal = document.getElementById("potluck-modal");
         const btn = document.getElementById("open-modal-btn");
         const span = document.getElementsByClassName("close-modal")[0];
         const form = document.getElementById("potluck-form");
+        const modalContent = document.querySelector('.modal-content');
 
         const scriptURL = 'https://script.google.com/macros/s/AKfycbysVdjS_g0Zlax7mxovFEQCuHsxTP77AIAURRhhmf4fgs3S0j0qiYlbd_5yghQulxRT/exec';
 
-        // Function to fetch and display the potluck list
+        function closeModal() {
+            modalContent.classList.add('closing');
+            setTimeout(() => {
+                modal.style.display = "none";
+                modalContent.classList.remove('closing');
+                // Reset form state if needed
+                const successMsg = document.getElementById('success-message');
+                if (successMsg.style.display === 'block') {
+                     document.getElementById('potluck-form-container').style.display = 'block';
+                     successMsg.style.display = 'none';
+                     form.reset();
+                }
+            }, 300); // Match animation duration
+        }
+
+        function openModal() {
+             modal.style.display = "block";
+        }
+
         function fetchPotluckList() {
             const container = document.getElementById('potluck-list');
             
@@ -263,20 +326,16 @@
         document.addEventListener('DOMContentLoaded', fetchPotluckList);
 
         if (btn) {
-            btn.onclick = function() {
-                modal.style.display = "block";
-            }
+            btn.onclick = openModal;
         }
 
         if (span) {
-            span.onclick = function() {
-                modal.style.display = "none";
-            }
+            span.onclick = closeModal;
         }
 
         window.onclick = function(event) {
             if (event.target == modal) {
-                modal.style.display = "none";
+                closeModal();
             }
         }
 
@@ -296,15 +355,27 @@
                         const name = document.getElementById("guest-name").value;
                         const dish = document.getElementById("dish-name").value;
                         
-                        alert(`Thanks ${name}! We've added ${dish} to the list.`);
+                        // Switch to success message
+                        document.getElementById('potluck-form-container').style.display = 'none';
+                        const successMsg = document.getElementById('success-message');
+                        successMsg.style.display = 'block';
+
+                        // Trigger Confetti
+                        confetti({
+                            particleCount: 150,
+                            spread: 70,
+                            origin: { y: 0.6 }
+                        });
                         
-                        form.reset();
-                        modal.style.display = "none";
-                        
-                        // Reload the list to show the new entry
+                        // Reload the list to show the new entry immediately
                         const container = document.getElementById('potluck-list');
                         container.innerHTML = '<div class="loading-message">Updating list...</div>';
                         fetchPotluckList();
+
+                        // Close modal after 3 seconds
+                        setTimeout(() => {
+                            closeModal();
+                        }, 3000);
                     })
                     .catch(error => {
                         console.error('Error!', error.message);
