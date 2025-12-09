@@ -177,7 +177,8 @@ li:last-child {
     display: inline-block;
     background: rgba(255, 255, 255, 0.95);
     color: var(--christmas-green-dark);
-    padding: 18px 40px;
+    font-family: 'Playfair Display', serif;
+    padding: 14px 30px;
     text-decoration: none;
     border-radius: 12px;
     font-weight: 450;
@@ -303,7 +304,7 @@ details[open] summary::after {
 
 .shopping-list h3 {
     margin-top: 0;
-    color: var(--gold);
+    /* color: var(--gold); */
 }
 
 .scoring-section {
@@ -311,6 +312,11 @@ details[open] summary::after {
     padding: 20px;
     background: rgba(255, 255, 255, 0.05);
     border-radius: 12px;
+}
+
+.scoring-section h3 {
+    margin-top: 0;
+    /* color: var(--gold); */
 }
 
 footer {
@@ -368,7 +374,7 @@ footer {
     }
     
     .btn {
-        padding: 16px 32px;
+        padding: 14px 30px;
         font-size: 1.05rem;
     }
 }
