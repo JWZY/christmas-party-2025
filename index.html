@@ -41,11 +41,11 @@
             <section id="potluck">
                 <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 30px;">
                     <h2 style="margin: 0;">🥘 Potluck List</h2>
-                    <a href="https://forms.gle/sPEXDVeF6yXjkxwi9" class="btn" target="_blank" style="padding: 12px 24px; font-size: 1rem;">➕ Add your dish</a>
+                    <button id="open-modal-btn" class="btn" style="padding: 12px 24px; font-size: 1rem;">➕ Add your dish</button>
                 </div>
                 
-                <div class="iframe-container">
-                    <iframe src="https://docs.google.com/spreadsheets/d/1Iuw68VoT3tqYQklupbxrwfsgTFdraa5HoMRjhnjw4lQ/htmlembed?widget=true&headers=false"></iframe>
+                <div id="potluck-list" class="potluck-list-container">
+                    <div class="loading-message">Loading tasty dishes...</div>
                 </div>
             </section>
 
@@ -189,5 +189,124 @@
             </section>
         </main>
     </div>
+    <!-- Modal -->
+    <div id="potluck-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 style="margin-top: 0; text-align: center;">🍲 Bring a Dish</h2>
+            <form id="potluck-form">
+                <div class="form-group">
+                    <label for="guest-name">Your Name</label>
+                    <input type="text" id="guest-name" name="name" required placeholder="e.g. Santa Claus">
+                </div>
+                <div class="form-group">
+                    <label for="dish-name">What are you bringing?</label>
+                    <input type="text" id="dish-name" name="dish" required placeholder="e.g. Grandma's Cookies">
+                </div>
+                <button type="submit" class="btn" style="width: 100%; margin-top: 10px;">Submit Dish</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Modal Logic
+        const modal = document.getElementById("potluck-modal");
+        const btn = document.getElementById("open-modal-btn");
+        const span = document.getElementsByClassName("close-modal")[0];
+        const form = document.getElementById("potluck-form");
+
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbysVdjS_g0Zlax7mxovFEQCuHsxTP77AIAURRhhmf4fgs3S0j0qiYlbd_5yghQulxRT/exec';
+
+        // Function to fetch and display the potluck list
+        function fetchPotluckList() {
+            const container = document.getElementById('potluck-list');
+            
+            fetch(scriptURL)
+                .then(response => response.json())
+                .then(data => {
+                    // Expecting data to be an array of objects
+                    if (data && data.length > 0) {
+                        let tableHTML = '<table class="potluck-table"><thead><tr><th>Guest Name</th><th>Bringing...</th></tr></thead><tbody>';
+                        
+                        data.forEach(row => {
+                            // Only show rows that have a name and dish
+                            if(row.name && row.dish) {
+                                tableHTML += `<tr>
+                                    <td>${row.name}</td>
+                                    <td>${row.dish}</td>
+                                </tr>`;
+                            }
+                        });
+                        
+                        tableHTML += '</tbody></table>';
+                        container.innerHTML = tableHTML;
+                    } else {
+                        container.innerHTML = '<div class="loading-message">No dishes added yet! Be the first!</div>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching list:', error);
+                    container.innerHTML = '<div class="error-message">Could not load the list. Refresh to try again.</div>';
+                });
+        }
+
+        // Load list on page load
+        document.addEventListener('DOMContentLoaded', fetchPotluckList);
+
+        if (btn) {
+            btn.onclick = function() {
+                modal.style.display = "block";
+            }
+        }
+
+        if (span) {
+            span.onclick = function() {
+                modal.style.display = "none";
+            }
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        if (form) {
+            form.onsubmit = function(e) {
+                e.preventDefault();
+                
+                const submitBtn = form.querySelector('button[type="submit"]');
+                const originalBtnText = submitBtn.innerText;
+                submitBtn.innerText = "Sending...";
+                submitBtn.disabled = true;
+
+                const formData = new FormData(form);
+
+                fetch(scriptURL, { method: 'POST', body: formData })
+                    .then(response => {
+                        const name = document.getElementById("guest-name").value;
+                        const dish = document.getElementById("dish-name").value;
+                        
+                        alert(`Thanks ${name}! We've added ${dish} to the list.`);
+                        
+                        form.reset();
+                        modal.style.display = "none";
+                        
+                        // Reload the list to show the new entry
+                        const container = document.getElementById('potluck-list');
+                        container.innerHTML = '<div class="loading-message">Updating list...</div>';
+                        fetchPotluckList();
+                    })
+                    .catch(error => {
+                        console.error('Error!', error.message);
+                        alert('Oops! Something went wrong. Please try again.');
+                    })
+                    .finally(() => {
+                        submitBtn.innerText = originalBtnText;
+                        submitBtn.disabled = false;
+                    });
+            }
+        }
+    </script>
 </body>
 </html>
