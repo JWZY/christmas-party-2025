@@ -226,7 +226,7 @@
                 .then(data => {
                     // Expecting data to be an array of objects
                     if (data && data.length > 0) {
-                        let tableHTML = '<table class="potluck-table"><thead><tr><th>Guest Name</th><th>Bringing...</th></tr></thead><tbody>';
+                        let tableHTML = '<table class="potluck-table"><thead><tr><th>Guest</th><th>Dish</th></tr></thead><tbody>';
                         
                         data.forEach(row => {
                             // Only show rows that have a name and dish
