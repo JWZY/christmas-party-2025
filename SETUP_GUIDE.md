@@ -94,7 +94,7 @@ git push -u origin main
 
 Your site will be live at:
 ```
-https://YOUR_USERNAME.github.io/christmas-party-2025/
+https://jwzy.github.io/christmas-party-2025/
 ```
 
 It may take 1-2 minutes to deploy. You'll see a green checkmark when it's ready!
