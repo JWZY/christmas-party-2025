@@ -17,6 +17,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
+    <script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
     <!-- Confetti Library -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
@@ -85,121 +87,23 @@
                     </p>
                 </div>
             </section>
-
-            <section id="games" class="host-only">
-                <h2>🎲 Games & Activities</h2>
-                <p style="color: var(--text-lighter); font-size: 1.05rem; margin-bottom: 25px;">
-                    We'll have 2 "Main Teams" (Red vs. Green) for the overall score, but individual games will mix up the format!
-                </p>
-
-                <div class="game-list">
-                    <!-- Game 1 -->
-                    <details class="game-item">
-                        <summary>✨ Rapid-Fire This or That</summary>
-                        <div class="game-details">
-                            <strong>Format: 2 Main Teams</strong>
-                            <p>Predict the group's holiday preferences! Teams try to guess the majority answer before the group reveals.</p>
-                            <p><em>Examples: "Chestnuts or Candy Canes?", "Elf or Home Alone?"</em></p>
-                            <strong>Supplies / Prep Needed:</strong>
-                            Prepared list of binary holiday questions.
-                        </div>
-                    </details>
-
-                    <!-- Game 2 -->
-                    <details class="game-item">
-                        <summary>🎈 Balloon Waddle</summary>
-                        <div class="game-details">
-                            <strong>Format: Pairs (2 ppl)</strong>
-                            <p>Pairs must waddle back-to-back with a balloon between them to the finish line without dropping it. If you drop it, you restart!</p>
-                            <strong>Supplies / Prep Needed:</strong>
-                            Balloons (plenty for everyone).
-                        </div>
-                    </details>
-
-                    <!-- Game 3 -->
-                    <details class="game-item">
-                        <summary>😐 Straight Face</summary>
-                        <div class="game-details">
-                            <strong>Format: Individual Free-for-All</strong>
-                            <p>Everyone writes an outrageous phrase on a slip of paper. One person draws and reads it aloud. The goal is to keep a straight face. Whoever laughs or smiles loses!</p>
-                            <strong>Supplies / Prep Needed:</strong>
-                            Paper pad, pens for everyone, a hat or bowl.
-                        </div>
-                    </details>
-
-                    <!-- Game 4 -->
-                    <details class="game-item">
-                        <summary>🎄 Real or Fake Christmas Fact?</summary>
-                        <div class="game-details">
-                            <strong>Format: 2 Main Teams</strong>
-                            <p>Host reads bizarre holiday statements (e.g., "In Norway, people hide their brooms on Christmas Eve."). Teams vote: Real or Fake.</p>
-                            <strong>Supplies / Prep Needed:</strong>
-                            List of true/false Christmas trivia facts.
-                        </div>
-                    </details>
-
-                    <!-- Game 5 -->
-                    <details class="game-item">
-                        <summary>🧩 Emoji Decoders</summary>
-                        <div class="game-details">
-                            <strong>Format: Small Squads (3-4 ppl)</strong>
-                            <p>Break into small squads. Show a string of emojis representing a movie/song. First squad to solve it gets the point.</p>
-                            <strong>Supplies / Prep Needed:</strong>
-                            Slides or images of emoji puzzles prepared on a phone/TV.
-                        </div>
-                    </details>
-
-                    <!-- Game 6 -->
-                    <details class="game-item">
-                        <summary>🎭 Holiday Charades</summary>
-                        <div class="game-details">
-                            <strong>Format: 2 Main Teams</strong>
-                            <p>Classic charades with festive prompts! Teams take turns sending an actor to mime a holiday phrase (e.g., "Stuffing the Turkey", "Silent Night") within 60 seconds.</p>
-                            <strong>Supplies / Prep Needed:</strong>
-                            Slips of paper with holiday prompts, timer, bowl/hat.
-                        </div>
-                    </details>
-                </div>
-
-                <div class="scoring-section">
-                    <h3>🏆 Scoring System</h3>
-                    <p style="margin-top: 0; color: var(--text-lighter); font-size: 0.95rem;">
-                        Everything feeds into the <strong>Main Team (Red vs Green)</strong> score!
-                    </p>
-                    <ul style="margin: 0;">
-                        <li><strong>Main Team Win:</strong> 5 Points (e.g. Charades)</li>
-                        <li><strong>Small Squad Win:</strong> 3 Points for your Main Team</li>
-                        <li><strong>Pair/Individual Win:</strong> 2 Points for your Main Team</li>
-                        <li><strong>Bonus:</strong> 1 Point for creativity/laughs</li>
-                    </ul>
-                </div>
-
-                <div class="shopping-list">
-                    <h3>🛒 Shopping & Prep List</h3>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                        <div>
-                            <h4 style="color: var(--text-light); margin-top: 0;">To Buy / Find:</h4>
-                            <ul style="font-size: 0.95rem;">
-                                <li>🎈 Balloons (Pack of 30+)</li>
-                                <li>🖊️ Pens/Pencils (10+)</li>
-                                <li>📝 Notepad or Paper</li>
-                                <li>🥣 2x Hats or Bowls</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 style="color: var(--text-light); margin-top: 0;">To Prep (Host):</h4>
-                            <ul style="font-size: 0.95rem;">
-                                <li>[ ] "This or That" Questions</li>
-                                <li>[ ] "Real or Fake" Facts List</li>
-                                <li>[ ] Emoji Puzzles (Phone/TV)</li>
-                                <li>[ ] Charades Prompts (Cutouts)</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </section>
         </main>
     </div>
+
+    <!-- Full Width Games Section -->
+    <div class="games-container" style="width: 95%; max-width: 1400px; margin: 0 auto; padding-bottom: 60px;">
+        <section id="games" class="host-only">
+            <h2>🎲 Games & Activities</h2>
+            <p style="color: var(--text-lighter); font-size: 1.05rem; margin-bottom: 25px;">
+                Compete for glory! Earn points individually or as temporary teams. Harder games = more points.
+            </p>
+            
+            <div id="games-table-wrapper"></div>
+        </section>
+    </div>
+
+    <div class="container">
+    <!-- Footer could go here if added later -->
     <!-- Modal -->
     <div id="potluck-modal" class="modal">
         <div class="modal-content">
@@ -261,6 +165,72 @@
                 }
             };
         }
+
+        // Games Table Logic
+        document.addEventListener('DOMContentLoaded', () => {
+             const gamesData = [
+                ["1", "Guess Who? (Pt 1)", "1 person per sheet", "Social", "FFA", "5 Pts / Correct Guess"],
+                ["2", "Squawk one, stack two", "Completion", "Physical", "2v2 pairs", "2 Pts Each"],
+                ["3", "Holiday Charades", "2 prompts each, 60s to guess", "Social", "2 Teams", "1 Pt / Word Win"],
+                ["4", "Balloon Waddle Rally", "First to finish wins", "Physical", "2v2 pairs", "2 Pts Each"],
+                ["5", "Lift & Scoop", "60s", "Physical", "1v1 Head-to-Head", "3 Pts (Winner)"],
+                ["6", "Rapid Fire Trivia", "10 questions", "Mental", "3 Teams", "1 Pt / Correct answer"],
+                ["7", "Bow Battle Royale", "Last one standing", "Physical", "FFA (Last Standing)", "5 Pts (Winner)"],
+                ["8", "Guess Who? (Pt 2)", "Reveal", "Social", "FFA", "Reveal"]
+            ];
+            
+            // Trivia Questions Data
+            const triviaQuestions = [
+                { q: "What countries besides Canada celebrates Boxing Day?", a: "United Kingdom, Australia, New Zealand, South Africa, and Jamaica" },
+                { q: "What's the name of the French-Canadian meat pie that's a Quebecois Christmas Eve staple?", a: "Tourtière" },
+                { q: "Which country started the tradition of putting up a Christmas tree?", a: "Germany" },
+                { q: "What song is this?", a: "Last Christmas" },
+                { q: "Where was the music video for Mariah Carey's 'All I Want for Christmas Is You' filmed?", a: "New Jersey" },
+                { q: "Who did Father Christmas wage war against, in 'The Father Christmas Letters'?", a: "The Goblins" },
+                { q: "Which country can you face up to 5 years in jail for celebrating Christmas?", a: "Brunei" },
+                { q: "Who owned the tarantula in 'Home Alone'?", a: "Buzz McCallister, Kevin's older brother" }
+            ];
+
+            // Render Card View for Mobile/Desktop
+            const wrapper = document.getElementById("games-table-wrapper");
+            if (wrapper) {
+                let html = '<div class="game-cards">';
+                gamesData.forEach(game => {
+                    const [order, title, time, type, format, scoring] = game;
+                    
+                    // Special rendering for Trivia to include expandable questions
+                    let extraContent = '';
+                    if (title === "Rapid Fire Trivia") {
+                        let questionsHtml = triviaQuestions.map((t, i) => 
+                            `<details class="trivia-accordion-item">
+                                <summary><strong>Q${i+1}:</strong> ${t.q}</summary>
+                                <div class="trivia-answer"><em>A: ${t.a}</em></div>
+                            </details>`
+                        ).join('');
+                        
+                        extraContent = `<div class="trivia-accordion-container">${questionsHtml}</div>`;
+                    }
+
+                    html += `
+                        <div class="game-card ${type.toLowerCase()}">
+                            <div class="card-header">
+                                <span class="game-order">#${order}</span>
+                                <h3 class="game-title">${title}</h3>
+                                <span class="game-type badge">${type}</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="card-row"><strong>🕒 Time:</strong> ${time}</div>
+                                <div class="card-row"><strong>👥 Format:</strong> ${format}</div>
+                                <div class="card-row"><strong>🏆 Scoring:</strong> ${scoring}</div>
+                                ${extraContent}
+                            </div>
+                        </div>
+                    `;
+                });
+                html += '</div>';
+                wrapper.innerHTML = html;
+            }
+        });
 
         // Modal Logic
         const modal = document.getElementById("potluck-modal");

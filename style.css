@@ -650,3 +650,279 @@ footer {
         border-radius: 12px;
     }
 }
+
+/* Grid.js Customization for Dark Theme */
+.gridjs-container {
+    color: var(--text-light);
+    font-family: 'Lora', serif;
+}
+.gridjs-wrapper {
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+    border: none !important;
+    background: transparent !important;
+}
+.gridjs-tbody {
+    background: transparent !important;
+}
+.gridjs-head {
+    background: transparent !important;
+}
+.gridjs-th {
+    background: rgba(0, 0, 0, 0.3) !important;
+    color: var(--gold) !important;
+    border: none !important;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    text-shadow: 0 1px 5px rgba(0,0,0,0.5);
+}
+.gridjs-tr {
+    background: transparent !important;
+}
+.gridjs-td {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: var(--text-light) !important;
+}
+.gridjs-tr:hover .gridjs-td {
+    background: rgba(255, 255, 255, 0.15) !important;
+}
+.gridjs-footer {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+.gridjs-pagination .gridjs-pages button {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: white !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+.gridjs-pagination .gridjs-pages button:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
+}
+.gridjs-pagination .gridjs-pages button.gridjs-currentPage {
+    background: var(--christmas-red) !important;
+    border-color: var(--christmas-red) !important;
+}
+.gridjs-search-input {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: white !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Tooltip Styles */
+.game-tooltip-wrapper {
+    position: relative;
+    display: inline-block;
+    cursor: help;
+    border-bottom: 1px dashed var(--gold);
+}
+
+.game-tooltip-wrapper .tooltip-text {
+    visibility: hidden;
+    width: 250px;
+    background-color: var(--christmas-green-dark);
+    color: #fff;
+    text-align: center;
+    border-radius: 8px;
+    padding: 10px;
+    position: absolute;
+    z-index: 9999; /* Higher z-index to sit on top of everything */
+    bottom: 125%; 
+    left: 50%;
+    transform: translateX(-50%); /* Better centering */
+    opacity: 0;
+    transition: opacity 0.3s;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    border: 1px solid var(--gold);
+    font-size: 0.9rem;
+    font-family: 'Lora', serif;
+    pointer-events: none;
+    white-space: normal; /* Ensure text wraps */
+}
+
+/* Ensure tooltip container doesn't clip content */
+.gridjs-td {
+    overflow: visible !important;
+}
+
+.gridjs-wrapper {
+    overflow: visible !important; /* Allow tooltips to go outside table bounds */
+}
+
+.game-tooltip-wrapper .tooltip-text::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--gold) transparent transparent transparent;
+}
+
+.game-tooltip-wrapper:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Mobile Friendly Card View Styles */
+.game-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 10px;
+}
+
+.game-card {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    backdrop-filter: blur(5px);
+    transition: transform 0.2s ease;
+}
+
+.game-card:hover {
+    background: rgba(255, 255, 255, 0.12);
+    transform: translateY(-2px);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 12px;
+    margin-bottom: 15px;
+}
+
+.game-order {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--gold);
+    opacity: 0.8;
+}
+
+.game-title {
+    margin: 0;
+    font-size: 1.2rem;
+    color: var(--snow-white);
+    flex-grow: 1;
+    padding: 0 15px;
+}
+
+.badge {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.game-card.social .badge { background: rgba(255, 105, 180, 0.2); color: #ff9ecd; border: 1px solid #ff9ecd; }
+.game-card.physical .badge { background: rgba(50, 205, 50, 0.2); color: #90ee90; border: 1px solid #90ee90; }
+.game-card.mental .badge { background: rgba(100, 149, 237, 0.2); color: #87cefa; border: 1px solid #87cefa; }
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.card-row {
+    color: var(--text-light);
+    font-size: 0.95rem;
+}
+
+.card-row strong {
+    color: var(--gold);
+    margin-right: 8px;
+}
+
+/* Trivia Dropdown Styles */
+.trivia-details {
+    margin-top: 15px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.trivia-details summary {
+    cursor: pointer;
+    color: var(--gold);
+    font-weight: bold;
+    padding: 5px;
+}
+
+.trivia-list {
+    margin-top: 10px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.trivia-item {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 10px 0;
+}
+
+.trivia-item:last-child {
+    border-bottom: none;
+}
+
+.trivia-q {
+    color: var(--snow-white);
+    margin-bottom: 4px;
+}
+
+.trivia-a {
+    color: var(--text-lighter);
+    font-size: 0.9rem;
+}
+
+/* Trivia Accordion Styles */
+.trivia-accordion-container {
+    margin-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.trivia-accordion-item {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.trivia-accordion-item summary {
+    padding: 15px 5px;
+    cursor: pointer;
+    list-style: none; /* Hide default marker */
+    position: relative;
+    padding-right: 30px;
+    color: var(--snow-white);
+    font-size: 0.95rem;
+}
+
+.trivia-accordion-item summary::-webkit-details-marker {
+    display: none;
+}
+
+.trivia-accordion-item summary::after {
+    content: '+'; 
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--gold);
+    font-size: 1.2rem;
+    transition: transform 0.2s;
+}
+
+.trivia-accordion-item[open] summary::after {
+    transform: translateY(-50%) rotate(45deg);
+}
+
+.trivia-answer {
+    padding: 0 15px 15px 15px;
+    color: var(--gold);
+    font-size: 1rem;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
